@@ -12,6 +12,7 @@ using CleanArchDemoMVC.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using CleanArch.Data.Context;
 
 namespace CleanArchDemoMVC
 {
@@ -32,6 +33,9 @@ namespace CleanArchDemoMVC
                     Configuration.GetConnectionString("UniversityIdentityDB")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddDbContext<UniversityDBContext>(options => 
+            options.UseSqlServer(Configuration.GetConnectionString("UniversityDB")));
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
